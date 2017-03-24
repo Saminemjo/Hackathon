@@ -31,6 +31,15 @@ angular.module('app')
                     }
                 }
             })
+            .state('anon.webcam', {
+                url: '/webcam',
+                views: {
+                    'content@': {
+                        templateUrl: 'anon/webcam.html',
+                        controller: 'WebcamController'
+                    }
+                }
+            })
             .state('anon.login', {
                 url: '/login',
                 views: {

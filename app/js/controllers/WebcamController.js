@@ -1,4 +1,5 @@
 angular.module('app')
+
     .controller('WebcamController', function($scope, webcamService) {
 
       $scope.cams = [];
@@ -8,3 +9,4 @@ angular.module('app')
        console.log(this);
      });
    });
+

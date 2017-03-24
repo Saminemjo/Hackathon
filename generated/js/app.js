@@ -61282,8 +61282,8 @@ angular.module('app')
     });
 
 angular.module('app')
-
     .controller('WebcamController', function($scope, webcamService) {
+      $http.defaults.headers.common["X-Mashape-Key"] = 'gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx';
 
       $scope.cams = [];
 
@@ -61292,7 +61292,6 @@ angular.module('app')
        console.log(this);
      });
    });
-
 
 angular.module('app')
     .controller('DashboardController', function($scope, CurrentUser, UserService) {
@@ -61471,13 +61470,19 @@ angular.module("app").run(["$templateCache", function($templateCache) {
 
   $templateCache.put("anon/home.html",
     "<div class=\"row\" id=header>\n" +
-    "  <div class=\"col-xs 12 \">\n" +
-    "\n" +
-    "  <h1> Lorem ipsum dolor amet </h1><br>\n" +
-    "  <button class=\"btn btn-primary\"type=\"button\" name=\"button\">Touch me if you dare !</button>\n" +
-    "\n" +
+    "    <div class=\"col-xs-12 \">\n" +
+    "        <h1> Voyagez sans meme bouger de son canapé ? </h1>\n" +
+    "    </div>\n" +
     "</div>\n" +
+    "\n" +
+    "<div class=\"row\" class=\"bouton\">\n" +
+    "  <div class=\"col-sx-12\">\n" +
+    "    <button id=\"btn\" class=\"btn btn-primary\" type=\"button\" name=\"button\">Touch me if you dare !</button>\n" +
+    "  </div>\n" +
     "</div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "<div id=\"mycarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n" +
     "    <!-- Indicators -->\n" +
@@ -61530,6 +61535,7 @@ angular.module("app").run(["$templateCache", function($templateCache) {
     "        <span class=\"glyphicon glyphicon-chevron-right \" aria-hidden=\"true \"></span>\n" +
     "        <span class=\"sr-only \">Next</span>\n" +
     "    </a>\n" +
+    "\n" +
     "</div>\n"
   );
 
@@ -61553,6 +61559,11 @@ angular.module("app").run(["$templateCache", function($templateCache) {
   );
 
   $templateCache.put("anon/map.html",
+    "<div map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
+    "  map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
+    "  <ng-map center=\"41,-87\" zoom=\"3\"></ng-map>\n" +
+    "</div>\n" +
+    "\n" +
     "<div class=\"coolmap\">\n" +
     "    <div class=\"col-md-3\">\n" +
     "        <form class=\"navbar-form\" role=\"search\">\n" +

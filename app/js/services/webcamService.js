@@ -4,7 +4,7 @@ angular.module('app')
 
         return {
             getAll: function() {
-                return $http.get("https://webcamstravel.p.mashape.com/webcams/list/orderby=popularity,desc/category=city/limit=2000?show=webcams:location,url&mashape-key=gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx");
+                return $http.get("https://webcamstravel.p.mashape.com/webcams/list/orderby=popularity,desc/category=city/limit=2000?show=webcams:location,url,image&mashape-key=gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx");
             },
 
         };

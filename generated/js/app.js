@@ -61256,32 +61256,43 @@ angular.module('app')
 
 angular.module('app')
     .service('webcamService', function($http) {
-      $http.defaults.headers.common["X-Mashape-Key"] = "gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx";
+      //$http.defaults.headers.common["X-Mashape-Key"] = "gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx";
 
         return {
             getAll: function() {
-                return $http.get('/users');
-            },
-            getOne: function(id) {
-                return $http.get('/users/' + id);
+                return $http.get("https://webcamstravel.p.mashape.com/webcams/list/orderby=popularity,desc/category=city/limit=2000?show=webcams:location,url,image&mashape-key=gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx");
             },
 
         };
     });
 
 angular.module('app')
-    .controller('MapController', function($scope) {
+    .controller('MapController', function($scope, webcamService) {
           $scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwyfHUk9AJXb8hwaJa73epwM2dPOTRyzg";
+
+          $scope.cams = [];
+
+          webcamService.getAll().then(function(res) {
+           $scope.cams = res.data.result.webcams;
+   console.log($scope.cams);
+
+
+          });
+
     });
 
 angular.module('app')
-    .controller('WebcamController', function($scope, $http) {
-          $http.defaults.headers.common["X-Mashape-Key"] = 'gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx';
 
-          $http.get('https://webcamstravel.p.mashape.com/webcams/list/country=IT/category=beach/orderby=popularity/limit=20?show=webcams:location,image').then(function (res) {
-            console.log(res.data);
-          })
-    });
+    .controller('WebcamController', function($scope, webcamService) {
+
+      $scope.cams = [];
+
+   webcamService.getAll().then(function(res) {
+       $scope.cams = res.data;
+       console.log(this);
+     });
+   });
+
 
 angular.module('app')
     .controller('DashboardController', function($scope, CurrentUser, UserService) {
@@ -61308,6 +61319,31 @@ angular.module('app')
 
 angular.module('app')
     .controller('MainController', function($scope) {
+      var $item = $('.carousel .item');
+var $wHeight = $(window).height();
+$item.eq(0).addClass('active');
+$item.height($wHeight);
+$item.addClass('full-screen');
+
+$('.carousel img').each(function() {
+  var $src = $(this).attr('src');
+  var $color = $(this).attr('data-color');
+  $(this).parent().css({
+    'background-image' : 'url(' + $src + ')',
+    'background-color' : $color
+  });
+  $(this).remove();
+});
+
+$(window).on('resize', function (){
+  $wHeight = $(window).height();
+  $item.height($wHeight);
+});
+
+$('.carousel').carousel({
+  interval: 4000,
+  pause: "false"
+});
       /* Here is your main controller */
     });
 
@@ -61517,10 +61553,56 @@ angular.module("app").run(["$templateCache", function($templateCache) {
   );
 
   $templateCache.put("anon/map.html",
-    "<div map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
-    "  map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
-    "  <ng-map center=\"41,-87\" zoom=\"3\"></ng-map>\n" +
-    "</div>\n"
+    "<div class=\"coolmap\">\n" +
+    "    <div class=\"col-md-3\">\n" +
+    "        <form class=\"navbar-form\" role=\"search\">\n" +
+    "            <div class=\"input-group add-on\">\n" +
+    "                <input class=\"form-control\" placeholder=\"Search\" name=\"srch-term\" id=\"{{cam.title}}\" type=\"text\">\n" +
+    "                <div class=\"input-group-btn\">\n" +
+    "                    <button class=\"btn btn-default\" type=\"submit\"><i class=\"glyphicon glyphicon-search\"></i></button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </div>\n" +
+    "    <nav class=\"navbar navbar-default navet\">\n" +
+    "        <div class=\"container trending\">\n" +
+    "            <div map-lazy-load=\"https://maps.google.com/maps/api/js\" map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
+    "\n" +
+    "                <ng-map class='mymap' center=\" 45.900,6.117,40.500,3.624\" zoom=\"1\">\n" +
+    "                    <div ng-repeat=\"cam in cams\">\n" +
+    "                        <custom-marker position=\"{{cam.location.latitude}},{{cam.location.longitude}}\" title=\"{{cam.title}}\">\n" +
+    "                            <button class='btnmap' type=\"button\" data-toggle=\"modal\" data-target=\"#{{cam.id}}\">\n" +
+    "\n" +
+    "</button>\n" +
+    "                        </custom-marker>\n" +
+    "\n" +
+    "                </ng-map>\n" +
+    "\n" +
+    "                <div class=\"modal-body modalmap\">\n" +
+    "\n" +
+    "                </div>\n" +
+    "                <div class=\"modal fade \" id=\"{{cam.id}}\" tabindex=\"-1 \" role=\"dialog \" aria-labelledby=\"{{cam.id}} \" aria-hidden=\"true \">\n" +
+    "                    <div class=\"modal-dialog \" role=\"document \">\n" +
+    "                        <div class=\"modal-content \">\n" +
+    "                            <div class=\"modal-header \">\n" +
+    "                                <h5 class=\"modal-title \" id=\"{{cam.id}} \">{{cam.title}}</h5>\n" +
+    "                                <button type=\"button \" class=\"close \" data-dismiss=\"modal \" aria-label=\"Close \">\n" +
+    "          <span aria-hidden=\"true \">&times;</span>\n" +
+    "        </button>\n" +
+    "                            </div>\n" +
+    "                            <div class=\"modal-body \">\n" +
+    "                                <a name=\"lkr-timelapse-player \" data-id=\"{{cam.id}} \" data-play=\"day \" href=\"//lookr.com/{{cam.id}}\" target=\"_blank \">{{cam.title}}</a>\n" +
+    "                                <script async type=\"text/javascript \" src=\"//api.lookr.com/embed/script/timelapse.js \"></script>\n" +
+    "                            </div>\n" +
+    "                            <div class=\"modal-footer\">\n" +
+    "                                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n"
   );
 
   $templateCache.put("anon/navbar.html",

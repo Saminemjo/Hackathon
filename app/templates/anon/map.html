@@ -1,7 +1,4 @@
-<div map-lazy-load="https://maps.google.com/maps/api/js"
-  map-lazy-load-params="{{googleMapsUrl}}">
-  <ng-map center="41,-87" zoom="3"></ng-map>
-</div>
+
 
 <div class="coolmap">
     <div class="col-md-3">
@@ -41,8 +38,7 @@
         </button>
                             </div>
                             <div class="modal-body ">
-                                <a name="lkr-timelapse-player " data-id="{{cam.id}} " data-play="day " href="//lookr.com/{{cam.id}}" target="_blank ">{{cam.title}}</a>
-                                <script async type="text/javascript " src="//api.lookr.com/embed/script/timelapse.js "></script>
+                                <a href="http://m.webcams.travel/webcam/{{cam.id}}"><img src="{{cam.image.current.preview}}"/></a>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,7 +1,7 @@
 angular.module("app").run(["$templateCache", function($templateCache) {
 
   $templateCache.put("anon/home.html",
-    "<div id=\"header\" class=\"row\">\n" +
+    "<div class=\"row\" id=header>\n" +
     "  <div class=\"col-xs 12 \">\n" +
     "\n" +
     "  <h1> Lorem ipsum dolor amet </h1><br>\n" +

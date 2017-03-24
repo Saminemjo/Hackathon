@@ -61471,14 +61471,14 @@ angular.module("app").run(["$templateCache", function($templateCache) {
   $templateCache.put("anon/home.html",
     "<div class=\"row\" id=header>\n" +
     "    <div class=\"col-xs-12 \">\n" +
-    "        <h1> Voyagez sans meme bouger de son canapé ? </h1>\n" +
+    "        <h1> Comment voyagez depuis votre canap&eacute ? </h1>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div class=\"row\" class=\"bouton\">\n" +
-    "  <div class=\"col-sx-12\">\n" +
-    "    <button id=\"btn\" class=\"btn btn-primary\" type=\"button\" name=\"button\">Touch me if you dare !</button>\n" +
-    "  </div>\n" +
+    "<div class=\"bouton xl\">\n" +
+    "\n" +
+    "    <button id=\"btn\" class=\"btn btn-primary btn-lg btn-block\" type=\"button\" name=\"button\">SOFA travel mode !</button>\n" +
+    "\n" +
     "</div>\n" +
     "\n" +
     "\n" +

@@ -20,7 +20,9 @@ position: absolute;
 z-index: 11;
 }
 #header{
-  align-items: center;
-  text-align: center;
-  margin-left: 50em;
+  position: absolute;
+  z-index: 11;
+  margin-left: 25vh;
+  margin-right: 25vh;
+
 }

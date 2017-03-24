@@ -4,5 +4,5 @@ angular.module('app')
 
           $http.get('https://webcamstravel.p.mashape.com/webcams/list/country=IT/category=beach/orderby=popularity/limit=20?show=webcams:location,image').then(function (res) {
             console.log(res.data);
-          })
+          });
     });

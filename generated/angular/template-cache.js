@@ -84,10 +84,34 @@ angular.module("app").run(["$templateCache", function($templateCache) {
   );
 
   $templateCache.put("anon/map.html",
-    "<div map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
+    "<div id=\"map\" map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
     "  map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
     "  <ng-map center=\"41,-87\" zoom=\"3\"></ng-map>\n" +
-    "</div>\n"
+    "</div>\n" +
+    "\n" +
+    "<!--<div class=\"wrapper\">\n" +
+    "\n" +
+    "  <div class=\"wrapper-earth\">\n" +
+    "    <div class=\"planet\">\n" +
+    "      <div class=\"earth\"></div>\n" +
+    "      <div class=\"water\"></div>\n" +
+    "      <div class=\"clouds\"></div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"planet-clouds\">\n" +
+    "    <div class=\"clouds\"></div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "\n" +
+    "<div class=\"sun\">\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "</div>\n" +
+    "</div>\n" +
+    "-->\n"
   );
 
   $templateCache.put("anon/navbar.html",

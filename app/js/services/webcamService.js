@@ -1,5 +1,5 @@
 angular.module('app')
-    .service('webcamService', function($http) {
+    .service('mapService', function($http) {
       $http.defaults.headers.common["X-Mashape-Key"] = "gSfaTTja0bmshVgDSAJexFPYhD2Ep1N86fgjsn4liGSxnv8dNx";
 
         return {

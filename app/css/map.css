@@ -1,0 +1,13 @@
+.mymap{
+  height: 600px;
+
+}
+.btnmap{
+  width: 10px;
+  background-color: red;
+  border-radius: 1px;
+  text-decoration: none;
+}
+.modalmap{
+  float: right;
+}

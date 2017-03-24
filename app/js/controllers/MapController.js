@@ -7,6 +7,8 @@ angular.module('app')
           webcamService.getAll().then(function(res) {
            $scope.cams = res.data.result.webcams;
    console.log($scope.cams);
+
+
           });
 
     });

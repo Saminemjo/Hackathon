@@ -91,10 +91,228 @@ angular.module("app").run(["$templateCache", function($templateCache) {
   );
 
   $templateCache.put("anon/map.html",
-    "<div map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
-    "  map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
-    "  <ng-map center=\"41,-87\" zoom=\"3\"></ng-map>\n" +
-    "</div>\n" +
+    "\n" +
+    "\n" +
+    "<style>\n" +
+    "    @keyframes spin {\n" +
+    "        to {\n" +
+    "            background-position: 0 200%;\n" +
+    "        }\n" +
+    "    }\n" +
+    "\n" +
+    "    @keyframes spinMask {\n" +
+    "        to {\n" +
+    "            -webkit-mask-position: 0 200%;\n" +
+    "        }\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    body,\n" +
+    "    html {\n" +
+    "        margin: 0;\n" +
+    "        height: 50%;\n" +
+    "        background: url(http://www.waterplea.com/codepen//sky.jpg);\n" +
+    "        background-size: cover;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "      body::after {\n" +
+    "        content: '';\n" +
+    "        position: fixed;\n" +
+    "        width: 100vw;\n" +
+    "        height: 100vw;\n" +
+    "        bottom: -84vw;\n" +
+    "        left: 0;\n" +
+    "        border-radius: 100%;\n" +
+    "        <!--box-shadow: inset 0 5px 3px -5px white;-->\n" +
+    "\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .wrapper,\n" +
+    "    .wrapper-earth {\n" +
+    "        position: fixed;\n" +
+    "        width: 95vw;\n" +
+    "        height: 95vw;\n" +
+    "        bottom: -84vw;\n" +
+    "        left: 0;\n" +
+    "        border-radius: 100%;\n" +
+    "        overflow: hidden;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .wrapper {\n" +
+    "        box-shadow: 0.5vw 0 1vw #6dcfff, 1vw 0 5vw rgba(255, 255, 255, 0.5), 3vw -8vw 6vw -9vw rgba(201, 237, 255, 0.5);\n" +
+    "\n" +
+    "        &::before,\n" +
+    "        &::after {\n" +
+    "            content: '';\n" +
+    "            position: absolute;\n" +
+    "            z-index: -1;\n" +
+    "            top: 0;\n" +
+    "            left: 0;\n" +
+    "            width: 100%;\n" +
+    "            height: 100%;\n" +
+    "            border-radius: 100%;\n" +
+    "        }\n" +
+    "\n" +
+    "        &::before {\n" +
+    "            box-shadow: inset 0 0 3vw 1.5vw rgba(201, 237, 255, 0.83);\n" +
+    "        }\n" +
+    "\n" +
+    "        &::after {\n" +
+    "            top: 200vw;\n" +
+    "            box-shadow: -8vw -196vw 10vw black;\n" +
+    "        }\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .wrapper-earth {\n" +
+    "        bottom: -84.5vw;\n" +
+    "        box-shadow: 0 0 0 0.5vw rgba(201, 237, 255, 0.5);\n" +
+    "\n" +
+    "\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .planet,\n" +
+    "    .planet-clouds {\n" +
+    "        perspective: 39vw;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .planet-clouds {\n" +
+    "        mix-blend-mode: screen;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .planet,\n" +
+    "    .planet-clouds,\n" +
+    "    .water,\n" +
+    "    .earth,\n" +
+    "    .clouds {\n" +
+    "        position: absolute;\n" +
+    "        top: 0;\n" +
+    "        bottom: 0;\n" +
+    "        left: 0;\n" +
+    "        right: 0;\n" +
+    "        z-index:-6;\n" +
+    "\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .earth {\n" +
+    "        background: url(http://www.waterplea.com/codepen//earth.jpg) 0 0;\n" +
+    "        background-size: cover;\n" +
+    "        animation: spin 0s linear infinite;\n" +
+    "        transform-origin: top;\n" +
+    "        transform: rotateX(30deg) scale(0.4);\n" +
+    "\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .water {\n" +
+    "        -webkit-mask-image: url(http://www.waterplea.com/codepen//water.png);\n" +
+    "        -webkit-mask-size: cover;\n" +
+    "        animation: spinMask 0,5s linear infinite;\n" +
+    "        transform-origin: top;\n" +
+    "        transform: rotateX(30deg) scale(0.4);\n" +
+    "        mix-blend-mode: lighten;\n" +
+    "\n" +
+    "        &::after {\n" +
+    "            content: '';\n" +
+    "            position: absolute;\n" +
+    "            top: -20%;\n" +
+    "            left: 70%;\n" +
+    "            width: 40%;\n" +
+    "            height: 35%;\n" +
+    "            border-radius: 100%;\n" +
+    "            box-shadow: 0 0 15vw 20vw #ffb400;\n" +
+    "        }\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .clouds {\n" +
+    "        background: url(http://www.waterplea.com/codepen//clouds.jpg) 0 0;\n" +
+    "        mix-blend-mode: screen;\n" +
+    "        background-size: cover;\n" +
+    "        animation: spin 0,5s linear infinite;\n" +
+    "        transform-origin: top;\n" +
+    "        transform: rotateX(30deg) scale(0.4);\n" +
+    "        z-index :-6;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .wrapper-earth .clouds {\n" +
+    "        mix-blend-mode: multiply;\n" +
+    "        filter: invert(100%);\n" +
+    "        opacity: 0.5;\n" +
+    "    }\n" +
+    "\n" +
+    "\n" +
+    "    .sun {\n" +
+    "        mix-blend-mode: screen;\n" +
+    "\n" +
+    "        &::before {\n" +
+    "            content: '';\n" +
+    "            position: fixed;\n" +
+    "            bottom: 0;\n" +
+    "            right: 14vw;\n" +
+    "            width: 50vw;\n" +
+    "            height: 40vw;\n" +
+    "            background: url(http://www.waterplea.com/codepen//flare.jpg) no-repeat;\n" +
+    "            background-size: contain;\n" +
+    "            opacity: 0.2;\n" +
+    "        }\n" +
+    "\n" +
+    "        .flare {\n" +
+    "            position: fixed;\n" +
+    "            width: 6vw;\n" +
+    "            height: 68vw;\n" +
+    "            right: 34vw;\n" +
+    "            bottom: 0;\n" +
+    "            overflow: hidden;\n" +
+    "            opacity: 0.2;\n" +
+    "            filter: blur(2px);\n" +
+    "            transform: rotate(30deg);\n" +
+    "\n" +
+    "            &:nth-child(2) {\n" +
+    "                transform: rotate(-30deg);\n" +
+    "            }\n" +
+    "\n" +
+    "            &:nth-child(3) {\n" +
+    "                transform: rotate(60deg);\n" +
+    "            }\n" +
+    "\n" +
+    "            &:nth-child(4) {\n" +
+    "                transform: rotate(120deg);\n" +
+    "            }\n" +
+    "\n" +
+    "            &::after {\n" +
+    "                content: '';\n" +
+    "                position: absolute;\n" +
+    "                top: 30vw;\n" +
+    "                width: 8vw;\n" +
+    "                height: 8vw;\n" +
+    "                border-radius: 100%;\n" +
+    "                box-shadow: 0 0 30vw white;\n" +
+    "            }\n" +
+    "        }\n" +
+    "\n" +
+    "        &::after {\n" +
+    "            content: '';\n" +
+    "            position: fixed;\n" +
+    "            bottom: 30vw;\n" +
+    "            right: 33vw;\n" +
+    "            width: 8vw;\n" +
+    "            height: 8vw;\n" +
+    "            border-radius: 100%;\n" +
+    "            background: white;\n" +
+    "            box-shadow: 0 0 4vw white, 0 0 10vw fade(orange, 50%), 0 0 10vw fade(white, 20%), 0 0 1vw white, 0 0 2vw white;\n" +
+    "        }\n" +
+    "    }\n" +
+    "</style>\n" +
+    "\n" +
     "\n" +
     "<div class=\"coolmap\">\n" +
     "    <div class=\"col-md-3\">\n" +
@@ -145,7 +363,57 @@ angular.module("app").run(["$templateCache", function($templateCache) {
     "                </div>\n" +
     "                </div>\n" +
     "            </div>\n" +
-    "        </div>\n"
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Début background-->\n" +
+    "\n" +
+    "<div class=\"wrapper\">\n" +
+    "            <div class=\"wrapper-earth\">\n" +
+    "                <div class=\"planet\">\n" +
+    "                    <div class=\"earth\"></div>\n" +
+    "                    <div class=\"water\"></div>\n" +
+    "                    <div class=\"clouds\"></div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"planet-clouds\">\n" +
+    "                <div class=\"clouds\"></div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "\n" +
+    "        <div class=\"sun\">\n" +
+    "            <div class=\"flare\"></div>\n" +
+    "            <div class=\"flare\"></div>\n" +
+    "            <div class=\"flare\"></div>\n" +
+    "            <div class=\"flare\"></div>\n" +
+    "        </div>\n" +
+    "<div id=\"map\" map-lazy-load=\"https://maps.google.com/maps/api/js\"\n" +
+    "  map-lazy-load-params=\"{{googleMapsUrl}}\">\n" +
+    "  <ng-map center=\"41,-87\" zoom=\"3\"></ng-map>\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--<div class=\"wrapper\">\n" +
+    "\n" +
+    "  <div class=\"wrapper-earth\">\n" +
+    "    <div class=\"planet\">\n" +
+    "      <div class=\"earth\"></div>\n" +
+    "      <div class=\"water\"></div>\n" +
+    "      <div class=\"clouds\"></div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"planet-clouds\">\n" +
+    "    <div class=\"clouds\"></div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "\n" +
+    "<div class=\"sun\">\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "  <div class=\"flare\"></div>\n" +
+    "</div>\n" +
+    "</div>\n" +
+    "-->\n"
   );
 
   $templateCache.put("anon/navbar.html",

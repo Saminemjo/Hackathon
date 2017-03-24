@@ -1,10 +1,231 @@
 
 
+<style>
+    @keyframes spin {
+        to {
+            background-position: 0 200%;
+        }
+    }
+
+    @keyframes spinMask {
+        to {
+            -webkit-mask-position: 0 200%;
+        }
+    }
+
+
+    body,
+    html {
+        margin: 0;
+        height: 50%;
+        background: url(http://www.waterplea.com/codepen//sky.jpg);
+        background-size: cover;
+    }
+
+
+      body::after {
+        content: '';
+        position: fixed;
+        width: 100vw;
+        height: 100vw;
+        bottom: -84vw;
+        left: 0;
+        border-radius: 100%;
+        <!--box-shadow: inset 0 5px 3px -5px white;-->
+
+    }
+
+
+    .wrapper,
+    .wrapper-earth {
+        position: fixed;
+        width: 95vw;
+        height: 95vw;
+        bottom: -84vw;
+        left: 0;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+
+    .wrapper {
+        box-shadow: 0.5vw 0 1vw #6dcfff, 1vw 0 5vw rgba(255, 255, 255, 0.5), 3vw -8vw 6vw -9vw rgba(201, 237, 255, 0.5);
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+        }
+
+        &::before {
+            box-shadow: inset 0 0 3vw 1.5vw rgba(201, 237, 255, 0.83);
+        }
+
+        &::after {
+            top: 200vw;
+            box-shadow: -8vw -196vw 10vw black;
+        }
+    }
+
+
+    .wrapper-earth {
+        bottom: -84.5vw;
+        box-shadow: 0 0 0 0.5vw rgba(201, 237, 255, 0.5);
+
+
+    }
+
+
+    .planet,
+    .planet-clouds {
+        perspective: 39vw;
+    }
+
+
+    .planet-clouds {
+        mix-blend-mode: screen;
+    }
+
+
+    .planet,
+    .planet-clouds,
+    .water,
+    .earth,
+    .clouds {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index:-6;
+
+    }
+
+
+    .earth {
+        background: url(http://www.waterplea.com/codepen//earth.jpg) 0 0;
+        background-size: cover;
+        animation: spin 0s linear infinite;
+        transform-origin: top;
+        transform: rotateX(30deg) scale(0.4);
+
+    }
+
+
+    .water {
+        -webkit-mask-image: url(http://www.waterplea.com/codepen//water.png);
+        -webkit-mask-size: cover;
+        animation: spinMask 0,5s linear infinite;
+        transform-origin: top;
+        transform: rotateX(30deg) scale(0.4);
+        mix-blend-mode: lighten;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 70%;
+            width: 40%;
+            height: 35%;
+            border-radius: 100%;
+            box-shadow: 0 0 15vw 20vw #ffb400;
+        }
+    }
+
+
+    .clouds {
+        background: url(http://www.waterplea.com/codepen//clouds.jpg) 0 0;
+        mix-blend-mode: screen;
+        background-size: cover;
+        animation: spin 0,5s linear infinite;
+        transform-origin: top;
+        transform: rotateX(30deg) scale(0.4);
+        z-index :-6;
+    }
+
+
+    .wrapper-earth .clouds {
+        mix-blend-mode: multiply;
+        filter: invert(100%);
+        opacity: 0.5;
+    }
+
+
+    .sun {
+        mix-blend-mode: screen;
+
+        &::before {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            right: 14vw;
+            width: 50vw;
+            height: 40vw;
+            background: url(http://www.waterplea.com/codepen//flare.jpg) no-repeat;
+            background-size: contain;
+            opacity: 0.2;
+        }
+
+        .flare {
+            position: fixed;
+            width: 6vw;
+            height: 68vw;
+            right: 34vw;
+            bottom: 0;
+            overflow: hidden;
+            opacity: 0.2;
+            filter: blur(2px);
+            transform: rotate(30deg);
+
+            &:nth-child(2) {
+                transform: rotate(-30deg);
+            }
+
+            &:nth-child(3) {
+                transform: rotate(60deg);
+            }
+
+            &:nth-child(4) {
+                transform: rotate(120deg);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 30vw;
+                width: 8vw;
+                height: 8vw;
+                border-radius: 100%;
+                box-shadow: 0 0 30vw white;
+            }
+        }
+
+        &::after {
+            content: '';
+            position: fixed;
+            bottom: 30vw;
+            right: 33vw;
+            width: 8vw;
+            height: 8vw;
+            border-radius: 100%;
+            background: white;
+            box-shadow: 0 0 4vw white, 0 0 10vw fade(orange, 50%), 0 0 10vw fade(white, 20%), 0 0 1vw white, 0 0 2vw white;
+        }
+    }
+</style>
+
+
 <div class="coolmap">
     <div class="col-md-3">
         <form class="navbar-form" role="search">
             <div class="input-group add-on">
-                <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                <input class="form-control" placeholder="Search" name="srch-term" id="{{cam.title}}" type="text">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
@@ -38,7 +259,8 @@
         </button>
                             </div>
                             <div class="modal-body ">
-                                <a href="http://m.webcams.travel/webcam/{{cam.id}}"><img src="{{cam.image.current.preview}}"/></a>
+                                <a name="lkr-timelapse-player " data-id="{{cam.id}} " data-play="day " href="//lookr.com/{{cam.id}}" target="_blank ">{{cam.title}}</a>
+                                <script async type="text/javascript " src="//api.lookr.com/embed/script/timelapse.js "></script>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -49,3 +271,53 @@
                 </div>
             </div>
         </div>
+
+        <!-- Début background-->
+
+<div class="wrapper">
+            <div class="wrapper-earth">
+                <div class="planet">
+                    <div class="earth"></div>
+                    <div class="water"></div>
+                    <div class="clouds"></div>
+                </div>
+            </div>
+            <div class="planet-clouds">
+                <div class="clouds"></div>
+            </div>
+
+
+        <div class="sun">
+            <div class="flare"></div>
+            <div class="flare"></div>
+            <div class="flare"></div>
+            <div class="flare"></div>
+        </div>
+<div id="map" map-lazy-load="https://maps.google.com/maps/api/js"
+  map-lazy-load-params="{{googleMapsUrl}}">
+  <ng-map center="41,-87" zoom="3"></ng-map>
+</div>
+
+<!--<div class="wrapper">
+
+  <div class="wrapper-earth">
+    <div class="planet">
+      <div class="earth"></div>
+      <div class="water"></div>
+      <div class="clouds"></div>
+    </div>
+  </div>
+
+  <div class="planet-clouds">
+    <div class="clouds"></div>
+  </div>
+
+
+<div class="sun">
+  <div class="flare"></div>
+  <div class="flare"></div>
+  <div class="flare"></div>
+  <div class="flare"></div>
+</div>
+</div>
+-->
